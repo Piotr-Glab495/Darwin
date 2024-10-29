@@ -34,3 +34,4 @@ Simple console app developed on first year of my undergraduate computer science 
 </ul>
 
 For more info about the program, see ProjectReportAndDocs.pdf - there is an instruction in polish at the beginning ;)
+Thanks to <a href="https://github.com/mNiedbalski">mNiedbalski</a> for the above description, because we had the same subject during our classes, so I copied it :P
