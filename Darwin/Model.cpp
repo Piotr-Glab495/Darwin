@@ -82,17 +82,17 @@ bool wczytaj_z_pliku(ifstream& file_in, list<list<int>>& populacja, const string
 			chromosom.push_back(gen);
 		}
 		chromosom.pop_back();
-		populacja.push_back(chromosom);
+		if(chromosom.size() >= 2)	// just rejecting chromosomes too short to handle during the population interbreeding
+			populacja.push_back(chromosom);
 		chromosom.clear();
 	}
-	populacja.pop_back();
 	return true;
 }
 
 
 void losuj_pare(list<list<int>>& populacja, int& pierwszy, int& drugi, int& licznik_losowan)
 {
-		pierwszy=(rand() % populacja.size());
+		pierwszy = (rand() % populacja.size());
 		drugi = (rand() % populacja.size());
 		while (drugi == pierwszy)
 			drugi = (rand() % populacja.size());
@@ -112,7 +112,9 @@ list<int> pobierz_koncowke(list<list<int>>& populacja,int& miejsce_przerwania,li
 	list<int> szukany_fragment;
 
 	list<int>::const_iterator iterator_chromosomu = aktualny_chromosom.cbegin();
-	miejsce_przerwania = (rand() % aktualny_chromosom.size());
+	if (aktualny_chromosom.size() < 2)
+		return szukany_fragment;
+	miejsce_przerwania = 1 + (rand() % (aktualny_chromosom.size() - 1));
 	for (int i = 0; i < miejsce_przerwania; i++)
 		iterator_chromosomu++;
 	for (   ; iterator_chromosomu != aktualny_chromosom.end(); iterator_chromosomu++)
@@ -168,7 +170,7 @@ void znajdz_najwieksza_srednia(const list<list<int>>& populacja, double& najwiek
 {
 	unsigned int suma_chwilowa = 0;
 	double srednia_chwilowa = 0;
-	for (auto osobnik : populacja)
+	for (auto& osobnik : populacja)
 	{
 		for (auto gen : osobnik)
 			suma_chwilowa += gen;

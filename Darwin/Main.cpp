@@ -48,7 +48,14 @@ int main(int args,char * params[])
 	}
 	File_In.close();
 
-	if (!populacja.empty())
+	for (auto i : populacja) {
+		for (auto j : i) {
+			cout << j << " ";
+		}
+		cout << endl;
+	}
+
+	if (!populacja.empty() && populacja.size() > 1)
 	{
 		modyfikuj_przez_pokolenia(populacja, p, k, w, r);
 		wypisz_do_pliku(File_Out, populacja);
